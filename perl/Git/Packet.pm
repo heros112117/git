@@ -83,7 +83,11 @@ sub packet_txt_read {
 	return ( $res, $buf );
 }
 
-# Read a text line and check that it is in the form "key=value"
+# Read a text packet, expecting that it is in the form "key=value" for
+# the given $key.  An EOF does not trigger any error and is reported
+# back to the caller (like packet_txt_read() does).  Die if the "key"
+# part of "key=value" does not match the given $key, or the value part
+# is empty.
 sub packet_key_val_read {
 	my ( $key ) = @_;
 	my ( $res, $buf ) = packet_txt_read();
